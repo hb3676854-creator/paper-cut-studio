@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#f7f3eb"><meta name="description" content="折一张纸，画出裁剪轮廓，再展开自己的团花。支持电脑和手机的剪纸实验台。">
+  <title>纸间 · 剪纸实验台</title><link rel="icon" href="icon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="icon-192.png"><link rel="manifest" href="manifest.webmanifest"><link rel="stylesheet" href="style.css?v=4">
+</head>
+<body>
+<header class="header"><a class="brand" href="./" aria-label="纸间剪纸实验台首页"><span class="brand-icon">✂</span><span>纸间<small>剪纸实验台</small></span></a><div class="header-actions"><span id="connection" class="connection">本机独立创作</span><button id="share" class="quiet">分享入口</button><button id="help" class="help-button" aria-label="使用说明">?</button></div></header>
+<main>
+  <section class="intro"><div><p class="eyebrow">一张纸的奇妙变化</p><h1>把一笔，展开成一朵花。</h1><p class="intro-copy">先折，再画，沿线裁剪，看看展开后的惊喜。</p></div><div class="intro-flower" aria-hidden="true"><svg viewBox="0 0 120 120"><g fill="none" stroke="currentColor" stroke-width="1.3"><circle cx="60" cy="60" r="48"/><path d="M60 12Q95 60 60 108Q25 60 60 12M12 60Q60 25 108 60Q60 95 12 60M26 26Q85 35 94 94Q35 85 26 26M94 26Q85 85 26 94Q35 35 94 26"/><circle cx="60" cy="60" r="11"/></g></svg></div></section>
+  <ol class="workflow" aria-label="创作流程"><li data-phase="fold"><b>01</b> 折纸</li><li data-phase="draw"><b>02</b> 画样</li><li data-phase="cut"><b>03</b> 裁剪</li><li data-phase="result"><b>04</b> 展开</li></ol>
+  <div class="studio">
+    <aside class="sidebar">
+      <section class="fold-selection"><div class="section-heading"><h2>选择一种折法</h2><span>从简单开始</span></div><div id="fold-options" class="fold-options" role="group" aria-label="选择折法"></div></section>
+      <section class="lesson-card"><div class="section-heading"><h2 id="lesson-heading">折纸小课堂</h2><span id="step-count"></span></div><div id="step-dots" class="step-dots" aria-hidden="true"></div><h3 id="step-title"></h3><p id="step-copy"></p><div class="fold-facts"><span><strong id="fact-layers"></strong>折好后层数</span><span><strong id="fact-angle"></strong>折叠结构</span></div><div class="step-actions"><button id="prev-step" class="quiet">← 上一步</button><button id="next-step" class="outline">下一步 →</button></div></section>
+      <section class="tip-card"><span class="tip-label">剪纸小提醒</span><p id="learning-tip">展开后图案的重复，来自纸张的折叠；不是把同一张图随意复制。</p><p class="small-note">团花使用圆纸，连续剪法使用长方形纸。保留折边连接处，展开后图案才能连在一起。</p></section>
+    </aside>
+    <section class="workspace" aria-label="剪纸操作区">
+      <div class="canvas-heading"><div><span id="stage-tag" class="tag">折纸演示</span><h2 id="stage-title">先认识这一张纸</h2></div><div id="view-controls" class="view-controls" hidden><button id="zoom-out" aria-label="缩小画布">−</button><button id="zoom-reset" aria-label="复位画布">100%</button><button id="zoom-in" aria-label="放大画布">＋</button></div></div>
+      <div id="canvas-wrap" class="canvas-wrap"><canvas id="paper" width="720" height="720" aria-label="折纸演示画布"></canvas><div id="paper-label" class="paper-label">圆形彩纸 · 沿虚线折叠</div><span id="scissors" class="scissors" aria-hidden="true">✂</span><div id="canvas-message" class="canvas-message" hidden></div></div>
+      <div id="drawing-tools" class="drawing-tools" hidden><div class="tool-buttons" role="group" aria-label="绘图工具"><button id="brush" class="tool selected" aria-pressed="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 16-1 5 5-1L21 8l-4-4L5 16Zm9-9 4 4M5 16l4 4"/></svg><span>画笔</span></button><button id="eraser" class="tool" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 20-6-6L14 3l7 7-10 10H9Zm-3-9 7 7m-3 2h12"/></svg><span>橡皮擦</span></button><span class="tool-divider"></span><button id="undo" class="tool" aria-label="撤销"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5 3 10l5 5M3 10h11a6 6 0 0 1 0 12"/></svg><span>撤销</span></button><button id="redo" class="tool" aria-label="重做"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m16 5 5 5-5 5m5-5H10a6 6 0 0 0 0 12"/></svg><span>重做</span></button></div><label class="brush-size">橡皮大小 <input id="size" type="range" min="4" max="64" value="24" aria-label="橡皮大小"><output id="size-value">24</output></label></div>
+      <div id="result-tools" class="result-tools" hidden><div class="segmented" role="group" aria-label="作品视图"><button data-view="folded">剪后折叠</button><button data-view="full" aria-pressed="true" class="selected">完整展开</button></div><label class="background-choice">衬底 <select id="backdrop" aria-label="预览背景"><option value="paper">米白</option><option value="white">纯白</option><option value="dark">深墨</option></select></label></div>
+      <div class="work-caption"><span id="caption"><i class="legend-line"></i> 虚线是折线，箭头表示方向</span><span id="draft-status">作品仅保存在此设备</span></div>
+      <div id="result-note" class="result-note" hidden role="status"></div>
+      <div class="action-bar"><button id="secondary" class="quiet" hidden>返回修改</button><p id="action-hint">按步骤折好纸，再开始画样。</p><button id="primary" class="primary">下一步 <span>→</span></button><button id="download" class="outline" hidden>保存作品 ↓</button></div>
+    </section>
+  </div>
+  <footer class="site-footer"><span>观察 · 尝试 · 展开</span><p>每个人都能剪出自己的节奏。</p><button id="restart" class="text-button">重新开始</button></footer>
+</main>
+<div id="toast" class="toast" role="status"></div>
+<dialog id="help-dialog"><div class="dialog-heading"><h2>从这一笔开始</h2><button data-close aria-label="关闭使用说明">×</button></div><div class="dialog-body"><ol class="help-list"><li><strong>折好纸</strong><p>选择折法，按步骤观看，最后确认折好的状态。</p></li><li><strong>画的是裁剪线，闭合处挖空</strong><p>在画布空白处也可以起笔，纸外线条不显示。首尾靠近会自动闭合，圈内淡色区域会被剪掉；从纸外进入再穿出纸边，默认剪掉较小一侧。未闭合也未贯穿纸边的线暂不挖空。橡皮擦擦掉线段后，待剪区域会重新计算。</p></li><li><strong>剪一剪，展开看</strong><p>点击裁剪，再展开。剪到折边会产生对称的缺口；剪穿连接处可能分成几块。</p></li></ol><p>手机：单指绘画，双指缩放和移动。电脑：鼠标绘画，画布上滚轮缩放；放大后按空格拖动画布。也可使用画布上方的缩放按钮。</p><p>撤销：Ctrl / ⌘ + Z；重做：Ctrl / ⌘ + Shift + Z。</p><p class="notice">团花采用圆纸等角扇形折叠；连续剪法将长方形纸分成六格，正反交替折叠。动效为示意。作品只保存在本机浏览器；多人打开同一链接会独立创作，无需登录。正式手工制作仍需留意纸张厚度和连接处。</p></div></dialog>
+<dialog id="share-dialog"><div class="dialog-heading"><h2>让每个家庭都试一试</h2><button data-close aria-label="关闭分享入口">×</button></div><div class="dialog-body"><div id="qr" class="qr"></div><p id="share-description"></p><input id="share-url" readonly aria-label="应用分享链接"><div class="share-actions"><button id="copy-link" class="primary">复制链接</button><button id="native-share" class="outline">系统分享</button></div><p class="notice">首次联网打开并完成资源缓存后，可在支持离线缓存的浏览器中再次使用。每部手机的画样独立保存。</p></div></dialog>
+<dialog id="confirm-dialog"><div class="dialog-heading"><h2 id="confirm-title">更换折法？</h2></div><div class="dialog-body"><p id="confirm-copy"></p><div class="share-actions"><button id="confirm-no" class="outline">保留当前作品</button><button id="confirm-yes" class="primary">确认更换</button></div></div></dialog>
+<script src="qrcode.js"></script><script src="engine.js?v=4"></script><script src="app.js?v=4"></script>
+</body></html>
